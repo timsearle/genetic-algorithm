@@ -8,5 +8,6 @@
 
 import Foundation
 
-println("Hello, World!")
+var algorithm = Algorithm(target: "My test string")
+algorithm .execute()
 

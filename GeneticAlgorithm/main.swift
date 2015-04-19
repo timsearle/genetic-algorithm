@@ -8,6 +8,6 @@
 
 import Foundation
 
-var algorithm = Algorithm(target: "My test string")
+var algorithm = Algorithm(target: "Timothy Searle", populationSize: 300)
 algorithm .execute()
 

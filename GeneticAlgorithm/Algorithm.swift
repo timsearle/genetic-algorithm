@@ -72,6 +72,7 @@ public class Algorithm {
             var parentOneChromosome = self.population[i]
             var parentTwoChromosome = self.population[i + 1]
             
+            // Replace weakest parent with child
             parentOneChromosome .compare(parentTwoChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
                 var weakestIndex = find(self.population, weakest)
                 self.population[weakestIndex!] = parentOneChromosome .breed(parentTwoChromosome, target: self.targetString)

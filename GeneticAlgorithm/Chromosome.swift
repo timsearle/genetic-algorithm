@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Chromosome: Equatable {
+public class Chromosome {
     
     public var geneSequence = ""
     
@@ -34,15 +34,15 @@ public class Chromosome: Equatable {
     
     public func breed(chromosome: Chromosome, target: String) -> Chromosome {
 
-        var child = Chromosome(numberOfGenes: 0)
+        let child = Chromosome(numberOfGenes: 0)
         
-        for var i = 0; i < count(self.geneSequence); i++ {
+        for var i = 0; i < self.geneSequence.characters.count; i++ {
             
             let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
             let mateIndex = advance(chromosome.geneSequence.startIndex, i)
             let targetIndex = advance(target.startIndex, i)
             
-            var fittest = self .fittest(self.geneSequence[geneSequenceIndex], geneTwo: chromosome.geneSequence[mateIndex], target: target[targetIndex])
+            let fittest = self .fittest(self.geneSequence[geneSequenceIndex], geneTwo: chromosome.geneSequence[mateIndex], target: target[targetIndex])
             
             child.geneSequence = child.geneSequence + String(fittest)
         }
@@ -76,7 +76,7 @@ public class Chromosome: Equatable {
         
         var totalFitness = 0
         
-        for var i = 0; i < count(criteria); i++ {
+        for var i = 0; i < criteria.characters.count; i++ {
             
             var fitnessValue = 0
             
@@ -86,14 +86,14 @@ public class Chromosome: Equatable {
                 } else {
                     let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
                     let criteriaIndex = advance(criteria.startIndex, i)
-                    var fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
+                    let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
                     self.fitnessCache?.insert(fitnessValue, atIndex: i)
                 }
             } else {
                 self.fitnessCache = []
                 let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
                 let criteriaIndex = advance(criteria.startIndex, i)
-                var fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
+                let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
                 self.fitnessCache?.insert(fitnessValue, atIndex: i)
             }
 
@@ -121,7 +121,7 @@ public class Chromosome: Equatable {
     
     private func shouldMutate() -> Bool {
         return arc4random_uniform(10) >= 8
-        // 10% chance
+        // 20% chance
     }
     
     private func randomMutationFactor() -> Int {
@@ -135,7 +135,7 @@ public class Chromosome: Equatable {
     }
     
     private func randomGene() -> (Character, String.Index) {
-        let randomIndexValue = Int(arc4random_uniform(UInt32(count(self.geneSequence))))
+        let randomIndexValue = Int(arc4random_uniform(UInt32(self.geneSequence.characters.count)))
         let randomIndex = advance(self.geneSequence.startIndex, randomIndexValue)
         return (self.geneSequence[randomIndex],randomIndex)
     }

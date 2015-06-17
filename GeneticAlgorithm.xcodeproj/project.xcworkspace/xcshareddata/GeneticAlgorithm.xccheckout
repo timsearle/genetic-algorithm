@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>572F649C-D1A9-450F-B16F-7AEE17557D4E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GeneticAlgorithm</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E0E9DA5CE5E51EE0A37C4D2A6C092418C4DDFACD</key>
+		<string>https://bitbucket.org/timsearle/geneticalgorithm-textmatch.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GeneticAlgorithm.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E0E9DA5CE5E51EE0A37C4D2A6C092418C4DDFACD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/timsearle/geneticalgorithm-textmatch.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E0E9DA5CE5E51EE0A37C4D2A6C092418C4DDFACD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E0E9DA5CE5E51EE0A37C4D2A6C092418C4DDFACD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>geneticalgorithm-textmatch</string>
+		</dict>
+	</array>
+</dict>
+</plist>

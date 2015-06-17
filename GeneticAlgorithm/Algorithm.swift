@@ -18,7 +18,7 @@ public class Algorithm {
     
     init (target targetString: String, populationSize: Int) {
         if populationSize % 2 != 0 {
-            println("Warning! Population size must be even - adding 1.")
+            print("Warning! Population size must be even - adding 1.")
             self.populationSize = populationSize + 1
         } else {
             self.populationSize = populationSize
@@ -29,30 +29,30 @@ public class Algorithm {
     }
     
     public func execute() {
-        println("Attempting to match '\(self.targetString)'")
+        print("Attempting to match '\(self.targetString)'")
         self .populate()
         self .run()
     }
     
     private func populate() {
-        println("Initialising population")
+        print("Initialising population")
         
-        let numberOfGenes = count(self.targetString)
+        let numberOfGenes = self.targetString.characters.count
         
         for var i = 0; i < self.populationSize; i++ {
-            var chromosome = Chromosome(numberOfGenes: numberOfGenes)
+            let chromosome = Chromosome(numberOfGenes: numberOfGenes)
             self.population .append(chromosome)
         }
         
-        println("Populating complete \(count(self.population))/\(populationSize)")
+        print("Populating complete \(self.population.count)/\(populationSize)")
     }
     
     private func run() {
-        println("Start evolving")
+        print("Start evolving")
         var generationCounter = 1
         
         while (isFinished != true) {
-            println("Generation: \(generationCounter)")
+            print("Generation: \(generationCounter)")
             
             // Run the algorithm
             self .selection()
@@ -62,19 +62,19 @@ public class Algorithm {
             generationCounter++
         }
         
-        println("Target string has been matched")
+        print("Target string has been matched")
     }
     
     private func selection() {
         for (var i = 0; i < self.population.count; i += 2) {
             
             // Breed adjacent chromosomes
-            var parentOneChromosome = self.population[i]
-            var parentTwoChromosome = self.population[i + 1]
+            let parentOneChromosome = self.population[i]
+            let parentTwoChromosome = self.population[i + 1]
             
             // Replace weakest parent with child
             parentOneChromosome .compare(parentTwoChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
-                var weakestIndex = find(self.population, weakest)
+                let weakestIndex = self.population.indexOf(weakest)
                 self.population[weakestIndex!] = parentOneChromosome .breed(parentTwoChromosome, target: self.targetString)
             })
         }
@@ -99,7 +99,7 @@ public class Algorithm {
         }
         
         if let fittestChromosome = champion {
-            println(fittestChromosome.geneSequence)
+            print(fittestChromosome.geneSequence)
             return fittestChromosome.geneSequence == self.targetString
         }
         
@@ -110,7 +110,7 @@ public class Algorithm {
 extension Algorithm {
     
     private func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let c = count(list)
+        let c = list.count
         for i in 0..<(c - 1) {
             let j = Int(arc4random_uniform(UInt32(c - i))) + i
             swap(&list[i], &list[j])

@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		220BBECF1ADC548400BA9144 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220BBECE1ADC548400BA9144 /* Algorithm.swift */; };
-		225F08B81AE2833600E75E25 /* Chromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225F08B71AE2833600E75E25 /* Chromosome.swift */; };
 		2283BE331ADAFC8100C56DB5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283BE321ADAFC8100C56DB5 /* main.swift */; };
-		8749908420C0051F0066FC54 /* Algorithm2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749908320C0051F0066FC54 /* Algorithm2.swift */; };
-		8749908620C021C90066FC54 /* Chromosome2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749908520C021C90066FC54 /* Chromosome2.swift */; };
+		871230F620C7202D001516D4 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871230F520C7202D001516D4 /* String+Utils.swift */; };
+		871230F820C72263001516D4 /* Character+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871230F720C72263001516D4 /* Character+Utils.swift */; };
+		871230FA20C72289001516D4 /* Fitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871230F920C72289001516D4 /* Fitness.swift */; };
+		8716865E20C7143300679644 /* Chromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716865C20C7143300679644 /* Chromosome.swift */; };
+		8716865F20C7143300679644 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8716865D20C7143300679644 /* Algorithm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,12 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		220BBECE1ADC548400BA9144 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
-		225F08B71AE2833600E75E25 /* Chromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chromosome.swift; sourceTree = "<group>"; };
 		2283BE2F1ADAFC8100C56DB5 /* GeneticAlgorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GeneticAlgorithm; sourceTree = BUILT_PRODUCTS_DIR; };
 		2283BE321ADAFC8100C56DB5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		8749908320C0051F0066FC54 /* Algorithm2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm2.swift; sourceTree = "<group>"; };
-		8749908520C021C90066FC54 /* Chromosome2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chromosome2.swift; sourceTree = "<group>"; };
+		871230F520C7202D001516D4 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		871230F720C72263001516D4 /* Character+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Utils.swift"; sourceTree = "<group>"; };
+		871230F920C72289001516D4 /* Fitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness.swift; sourceTree = "<group>"; };
+		8716865C20C7143300679644 /* Chromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chromosome.swift; sourceTree = "<group>"; };
+		8716865D20C7143300679644 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,11 +67,12 @@
 		2283BE311ADAFC8100C56DB5 /* GeneticAlgorithm */ = {
 			isa = PBXGroup;
 			children = (
+				8716865D20C7143300679644 /* Algorithm.swift */,
+				8716865C20C7143300679644 /* Chromosome.swift */,
+				871230F920C72289001516D4 /* Fitness.swift */,
+				871230F520C7202D001516D4 /* String+Utils.swift */,
+				871230F720C72263001516D4 /* Character+Utils.swift */,
 				2283BE321ADAFC8100C56DB5 /* main.swift */,
-				220BBECE1ADC548400BA9144 /* Algorithm.swift */,
-				225F08B71AE2833600E75E25 /* Chromosome.swift */,
-				8749908320C0051F0066FC54 /* Algorithm2.swift */,
-				8749908520C021C90066FC54 /* Chromosome2.swift */,
 			);
 			path = GeneticAlgorithm;
 			sourceTree = "<group>";
@@ -106,6 +109,7 @@
 				TargetAttributes = {
 					2283BE2E1ADAFC8100C56DB5 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -131,11 +135,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8749908620C021C90066FC54 /* Chromosome2.swift in Sources */,
-				8749908420C0051F0066FC54 /* Algorithm2.swift in Sources */,
+				871230FA20C72289001516D4 /* Fitness.swift in Sources */,
+				871230F620C7202D001516D4 /* String+Utils.swift in Sources */,
+				8716865E20C7143300679644 /* Chromosome.swift in Sources */,
+				871230F820C72263001516D4 /* Character+Utils.swift in Sources */,
 				2283BE331ADAFC8100C56DB5 /* main.swift in Sources */,
-				225F08B81AE2833600E75E25 /* Chromosome.swift in Sources */,
-				220BBECF1ADC548400BA9144 /* Algorithm.swift in Sources */,
+				8716865F20C7143300679644 /* Algorithm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +192,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -234,7 +239,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -244,7 +249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.1;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -254,7 +259,7 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.1;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

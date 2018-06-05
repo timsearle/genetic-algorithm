@@ -2,126 +2,116 @@
 //  Algorithm.swift
 //  GeneticAlgorithm
 //
-//  Created by Tim Searle on 13/04/2015.
-//  Copyright (c) 2015 Tim Searle. All rights reserved.
+//  Created by Tim Searle on 31/05/2018.
+//  Copyright © 2018 Tim Searle. All rights reserved.
 //
 
 import Foundation
+import os
 
-public class Algorithm {
+typealias ASCIIValue = Int
 
-    private var populationSize: Int
+struct Mutation {
+    let width: Int
+    let rate: Double
     
-    private var targetString : String
-    private var population : Array<Chromosome>
-    private var isFinished = false
+    static var `default`: Mutation {
+        return Mutation(width: 3, rate: 0.3)
+    }
     
-    init (target targetString: String, populationSize: Int) {
-        if populationSize % 2 != 0 {
-            print("Warning! Population size must be even - adding 1.")
-            self.populationSize = populationSize + 1
-        } else {
-            self.populationSize = populationSize
+    func shouldMutate() -> Bool {
+        return true
+    }
+}
+
+struct AlgorithmConfiguration {
+    
+    enum StringType {
+        case ascii
+    }
+    
+    let poolSize: Int
+    let mutation: Mutation = .default
+    let type: StringType = .ascii
+    let fitnessFunction: FitnessCalculator
+}
+
+struct AlgorithmResult {
+    let poolSize: Int
+    let generationCount: Int
+    let inputStringSize: Int
+}
+
+struct Algorithm {
+    
+    private let configuration: AlgorithmConfiguration
+    private let ascii: [Int]
+    private let target: String
+    private let fitness: Fitness
+    
+    init?(target: String, configuration: AlgorithmConfiguration) {
+        self.configuration = configuration
+        self.target = target
+        
+        guard let ascii = target.ascii() else {
+            return nil
         }
         
-        self.targetString = targetString
-        self.population = []
+        self.ascii = ascii
+        self.fitness = Fitness(goal: ascii, function: configuration.fitnessFunction)
     }
     
-    public func execute() {
-        print("Attempting to match '\(self.targetString)'")
-        self .populate()
-        self .run()
-    }
-    
-    private func populate() {
-        print("Initialising population")
+    func run() -> AlgorithmResult {
         
-        let numberOfGenes = self.targetString.count
+        var pool = seedPool(size: configuration.poolSize)
+        var counter = 0
         
-        for _ in 0..<self.populationSize {
-            let chromosome = Chromosome(numberOfGenes: numberOfGenes)
-            self.population .append(chromosome)
+        while !isSuccessful(pool: pool) {
+            counter += 1
+            pool = breed(pool: pool).shuffled()
         }
         
-        print("Populating complete \(self.population.count)/\(populationSize)")
+        return AlgorithmResult(poolSize: configuration.poolSize, generationCount: counter, inputStringSize: target.count)
     }
     
-    private func run() {
-        print("Start evolving")
-        var generationCounter = 1
-        
-        let start = CFAbsoluteTimeGetCurrent()
-        
-        while (isFinished != true) {
-            
-            print("Generation: \(generationCounter)")
-            
-            // Run the algorithm
-            self .selection()
-            self .shufflePopulation()
-            isFinished = self .analyze()
-            
-            generationCounter += 1
-        }
-        
-        let end = CFAbsoluteTimeGetCurrent()
-        
-        print("Target string has been matched")
-        
-        print("Completed in:  \(end - start) seconds")
-    }
-    
-    private func selection() {
-        for i in stride(from: 0, to: self.population.count, by: 2) {
-            
-            // Breed adjacent chromosomes
-            let parentOneChromosome = self.population[i]
-            let parentTwoChromosome = self.population[i + 1]
-            
-            // Replace weakest parent with child
-            parentOneChromosome .compare(chromosome: parentTwoChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
-                let weakestIndex = self.population.index(of:weakest)
-                self.population[weakestIndex!] = parentOneChromosome .breed(chromosome: parentTwoChromosome, target: self.targetString)
-            })
+    private func seedPool(size: Int) -> [Chromosome] {
+        return (0..<size).map { _ in
+            return Chromosome(size: target.count, fitness: fitness)
         }
     }
     
-    private func shufflePopulation() {
-        self.population.shuffle()
-    }
-    
-    private func analyze() -> Bool {
+    private func isSuccessful(pool: [Chromosome]) -> Bool {
         
-        var champion: Chromosome?
-        
-        for chromosome in self.population {
-            if let fittestChromosome = champion {
-                chromosome .compare(chromosome: fittestChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
-                    champion = fittest
-                })
-            } else {
-                champion = chromosome
+        for chromo in pool {
+            if chromo.value == 0 {
+                return true
             }
-        }
-        
-        if let fittestChromosome = champion {
-            print(fittestChromosome.geneSequence)
-            return fittestChromosome.geneSequence == self.targetString
         }
         
         return false
     }
-}
-
-extension Array {
     
-    mutating func shuffle() {
+    private func breed(pool: [Chromosome]) -> [Chromosome] {
         
-        for i in 0..<self.count {
-            let randomSwapIndex = Int(arc4random_uniform(UInt32(self.count - 1 - i + 1))) + i
-            self.swapAt(i, randomSwapIndex)
+        guard !pool.isEmpty else {
+            return pool
         }
         
+        var outputPool = Set<Chromosome>()
+        
+        for chromo in pool {
+            guard let random = pool.randomElement() else {
+                continue
+            }
+            
+            let child = Chromosome(parentA: chromo, parentB: random, fitness: fitness)
+            outputPool.insert(child)
+            
+            if child.value == 0 {
+              //  break
+            }
+        }
+        
+        return Array(outputPool)
     }
 }

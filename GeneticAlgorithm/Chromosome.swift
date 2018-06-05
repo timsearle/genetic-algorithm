@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Chromosome {
+public final class Chromosome {
     
     public var geneSequence = ""
     
@@ -19,16 +19,16 @@ public class Chromosome {
     private let maxMutationDistance: UInt32 = 6
     
     init(numberOfGenes: Int) {
-        self.geneSequence = self .createChromosome(numberOfGenes)
+        self.geneSequence = self .createChromosome(length: numberOfGenes)
     }
     
     // MARK: Public
     
-    public func compare(chromosome: Chromosome, criteria: String, comparison: (fittest: Chromosome, weakest: Chromosome) -> ()) {
-        if self .fitness(criteria) > chromosome.fitness(criteria) {
-            comparison(fittest: self, weakest: chromosome)
+    public func compare(chromosome: Chromosome, criteria: String, comparison: (_ fittest: Chromosome, _ weakest: Chromosome) -> ()) {
+        if self .fitness(criteria: criteria) > chromosome.fitness(criteria: criteria) {
+            comparison(self, chromosome)
         } else {
-            comparison(fittest: chromosome, weakest: self)
+            comparison(chromosome, self)
         }
     }
     
@@ -36,13 +36,13 @@ public class Chromosome {
 
         let child = Chromosome(numberOfGenes: 0)
         
-        for var i = 0; i < self.geneSequence.characters.count; i++ {
+        for i in 0..<self.geneSequence.count {
             
-            let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
-            let mateIndex = advance(chromosome.geneSequence.startIndex, i)
-            let targetIndex = advance(target.startIndex, i)
+            let geneSequenceIndex = self.geneSequence.index(self.geneSequence.startIndex, offsetBy: i)
+            let mateIndex = chromosome.geneSequence.index(chromosome.geneSequence.startIndex, offsetBy: i)
+            let targetIndex = target.index(target.startIndex, offsetBy: i)
             
-            let fittest = self .fittest(self.geneSequence[geneSequenceIndex], geneTwo: chromosome.geneSequence[mateIndex], target: target[targetIndex])
+            let fittest = self .fittest(geneOne: self.geneSequence[geneSequenceIndex], geneTwo: chromosome.geneSequence[mateIndex], target: target[targetIndex])
             
             child.geneSequence = child.geneSequence + String(fittest)
         }
@@ -66,9 +66,9 @@ public class Chromosome {
                 return
             }
             
-            gene = self .character(gene .unicodeScalarCodePoint() + mutationFactor)
-            let range = Range(index...index)
-            self.geneSequence = self.geneSequence .stringByReplacingCharactersInRange(range, withString: String(gene))
+            gene = self .character(asciiCode: gene .unicodeScalarCodePoint() + mutationFactor)
+            let range = index...index
+            self.geneSequence = self.geneSequence.replacingCharacters(in: range, with: String(gene))
         }
     }
     
@@ -76,7 +76,30 @@ public class Chromosome {
         
         var totalFitness = 0
         
-        for var i = 0; i < criteria.characters.count; i++ {
+//        for i, c in criteria.characters {
+//            var fitnessValue = 0
+//            
+//            if let cache = self.fitnessCache {
+//                if cache.count - 1 > i {
+//                    fitnessValue = cache[i]
+//                } else {
+//                    let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
+//                    let criteriaIndex = advance(criteria.startIndex, i)
+//                    let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
+//                    self.fitnessCache?.insert(fitnessValue, atIndex: i)
+//                }
+//            } else {
+//                self.fitnessCache = []
+//                let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
+//                let criteriaIndex = advance(criteria.startIndex, i)
+//                let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
+//                self.fitnessCache?.insert(fitnessValue, atIndex: i)
+//            }
+//            
+//            totalFitness = totalFitness + fitnessValue
+//
+//        }
+        for i in 0..<criteria.count {
             
             var fitnessValue = 0
             
@@ -84,17 +107,17 @@ public class Chromosome {
                 if cache.count - 1 > i {
                     fitnessValue = cache[i]
                 } else {
-                    let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
-                    let criteriaIndex = advance(criteria.startIndex, i)
-                    let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
-                    self.fitnessCache?.insert(fitnessValue, atIndex: i)
+                    let geneSequenceIndex = self.geneSequence.index(self.geneSequence.startIndex, offsetBy: i)
+                    let criteriaIndex = criteria.index(criteria.startIndex, offsetBy: i)
+                    let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(target: criteria[criteriaIndex])
+                    self.fitnessCache?.insert(fitnessValue, at: i)
                 }
             } else {
                 self.fitnessCache = []
-                let geneSequenceIndex = advance(self.geneSequence.startIndex, i)
-                let criteriaIndex = advance(criteria.startIndex, i)
-                let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(criteria[criteriaIndex])
-                self.fitnessCache?.insert(fitnessValue, atIndex: i)
+                let geneSequenceIndex = self.geneSequence.index(self.geneSequence.startIndex, offsetBy: i)
+                let criteriaIndex = criteria.index(criteria.startIndex, offsetBy: i)
+                let fitnessValue = self.geneSequence[geneSequenceIndex].fitness(target: criteria[criteriaIndex])
+                self.fitnessCache?.insert(fitnessValue, at: i)
             }
 
             totalFitness = totalFitness + fitnessValue
@@ -104,16 +127,14 @@ public class Chromosome {
     }
     
     private func fittest(geneOne: Character, geneTwo: Character, target: Character) -> Character {
-        return geneOne .fitness(target) > geneTwo .fitness(target) ? geneOne : geneTwo
+        return geneOne .fitness(target: target) > geneTwo .fitness(target: target) ? geneOne : geneTwo
     }
     
     private func createChromosome(length : Int) -> String {
         var chromosome = ""
-        
-        for var i = 0; i < length; i++ {
-            let randomAsciiCharacter = Int .random(Range(lowerRange...upperRange))
-        
-            chromosome = chromosome + String(self .character(randomAsciiCharacter))
+        for _ in 0..<length {
+            let randomAsciiCharacter = Int .random(range: Range(uncheckedBounds: (lowerRange,upperRange)))
+            chromosome = chromosome + String(self .character(asciiCode: randomAsciiCharacter))
         }
         
         return chromosome
@@ -135,13 +156,13 @@ public class Chromosome {
     }
     
     private func randomGene() -> (Character, String.Index) {
-        let randomIndexValue = Int(arc4random_uniform(UInt32(self.geneSequence.characters.count)))
-        let randomIndex = advance(self.geneSequence.startIndex, randomIndexValue)
+        let randomIndexValue = Int(arc4random_uniform(UInt32(self.geneSequence.count)))
+        let randomIndex = self.geneSequence.index(self.geneSequence.startIndex, offsetBy: randomIndexValue)
         return (self.geneSequence[randomIndex],randomIndex)
     }
     
     private func character(asciiCode: Int) -> Character {
-        return Character(UnicodeScalar(asciiCode))
+        return Character(UnicodeScalar(asciiCode)!)
     }
 }
 
@@ -159,13 +180,13 @@ extension Int
     {
         var offset = 0
         
-        if range.startIndex < 0   // allow negative ranges
+        if range.lowerBound < 0   // allow negative ranges
         {
-            offset = abs(range.startIndex)
+            offset = abs(range.lowerBound)
         }
         
-        let mini = UInt32(range.startIndex + offset)
-        let maxi = UInt32(range.endIndex   + offset)
+        let mini = UInt32(range.lowerBound + offset)
+        let maxi = UInt32(range.upperBound   + offset)
         
         return Int(mini + arc4random_uniform(maxi - mini)) - offset
     }

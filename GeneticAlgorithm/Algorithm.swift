@@ -37,9 +37,9 @@ public class Algorithm {
     private func populate() {
         print("Initialising population")
         
-        let numberOfGenes = self.targetString.characters.count
+        let numberOfGenes = self.targetString.count
         
-        for var i = 0; i < self.populationSize; i++ {
+        for _ in 0..<self.populationSize {
             let chromosome = Chromosome(numberOfGenes: numberOfGenes)
             self.population .append(chromosome)
         }
@@ -51,7 +51,10 @@ public class Algorithm {
         print("Start evolving")
         var generationCounter = 1
         
+        let start = CFAbsoluteTimeGetCurrent()
+        
         while (isFinished != true) {
+            
             print("Generation: \(generationCounter)")
             
             // Run the algorithm
@@ -59,29 +62,33 @@ public class Algorithm {
             self .shufflePopulation()
             isFinished = self .analyze()
             
-            generationCounter++
+            generationCounter += 1
         }
         
+        let end = CFAbsoluteTimeGetCurrent()
+        
         print("Target string has been matched")
+        
+        print("Completed in:  \(end - start) seconds")
     }
     
     private func selection() {
-        for (var i = 0; i < self.population.count; i += 2) {
+        for i in stride(from: 0, to: self.population.count, by: 2) {
             
             // Breed adjacent chromosomes
             let parentOneChromosome = self.population[i]
             let parentTwoChromosome = self.population[i + 1]
             
             // Replace weakest parent with child
-            parentOneChromosome .compare(parentTwoChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
-                let weakestIndex = self.population.indexOf(weakest)
-                self.population[weakestIndex!] = parentOneChromosome .breed(parentTwoChromosome, target: self.targetString)
+            parentOneChromosome .compare(chromosome: parentTwoChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
+                let weakestIndex = self.population.index(of:weakest)
+                self.population[weakestIndex!] = parentOneChromosome .breed(chromosome: parentTwoChromosome, target: self.targetString)
             })
         }
     }
     
     private func shufflePopulation() {
-        self.population = self .shuffle(self.population)
+        self.population.shuffle()
     }
     
     private func analyze() -> Bool {
@@ -90,7 +97,7 @@ public class Algorithm {
         
         for chromosome in self.population {
             if let fittestChromosome = champion {
-                chromosome .compare(fittestChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
+                chromosome .compare(chromosome: fittestChromosome, criteria: self.targetString, comparison: { (fittest, weakest) -> () in
                     champion = fittest
                 })
             } else {
@@ -107,14 +114,14 @@ public class Algorithm {
     }
 }
 
-extension Algorithm {
+extension Array {
     
-    private func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let c = list.count
-        for i in 0..<(c - 1) {
-            let j = Int(arc4random_uniform(UInt32(c - i))) + i
-            swap(&list[i], &list[j])
+    mutating func shuffle() {
+        
+        for i in 0..<self.count {
+            let randomSwapIndex = Int(arc4random_uniform(UInt32(self.count - 1 - i + 1))) + i
+            self.swapAt(i, randomSwapIndex)
         }
-        return list
+        
     }
 }

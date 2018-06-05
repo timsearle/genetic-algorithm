@@ -8,6 +8,6 @@
 
 import Foundation
 
-var algorithm = Algorithm(target: "Tomek is gay!(**&^*ahkjgakjh", populationSize: 300)
-algorithm .execute()
+var algorithm = Algorithm2(target: "Hello Sam!", poolSize: 170)
+algorithm.run()
 

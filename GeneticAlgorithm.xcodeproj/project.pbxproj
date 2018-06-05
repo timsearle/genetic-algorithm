@@ -10,6 +10,8 @@
 		220BBECF1ADC548400BA9144 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220BBECE1ADC548400BA9144 /* Algorithm.swift */; };
 		225F08B81AE2833600E75E25 /* Chromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225F08B71AE2833600E75E25 /* Chromosome.swift */; };
 		2283BE331ADAFC8100C56DB5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2283BE321ADAFC8100C56DB5 /* main.swift */; };
+		8749908420C0051F0066FC54 /* Algorithm2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749908320C0051F0066FC54 /* Algorithm2.swift */; };
+		8749908620C021C90066FC54 /* Chromosome2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749908520C021C90066FC54 /* Chromosome2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +31,8 @@
 		225F08B71AE2833600E75E25 /* Chromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chromosome.swift; sourceTree = "<group>"; };
 		2283BE2F1ADAFC8100C56DB5 /* GeneticAlgorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GeneticAlgorithm; sourceTree = BUILT_PRODUCTS_DIR; };
 		2283BE321ADAFC8100C56DB5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		8749908320C0051F0066FC54 /* Algorithm2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm2.swift; sourceTree = "<group>"; };
+		8749908520C021C90066FC54 /* Chromosome2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chromosome2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,8 @@
 				2283BE321ADAFC8100C56DB5 /* main.swift */,
 				220BBECE1ADC548400BA9144 /* Algorithm.swift */,
 				225F08B71AE2833600E75E25 /* Chromosome.swift */,
+				8749908320C0051F0066FC54 /* Algorithm2.swift */,
+				8749908520C021C90066FC54 /* Chromosome2.swift */,
 			);
 			path = GeneticAlgorithm;
 			sourceTree = "<group>";
@@ -95,7 +101,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Tim Searle";
 				TargetAttributes = {
 					2283BE2E1ADAFC8100C56DB5 = {
@@ -125,6 +131,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8749908620C021C90066FC54 /* Chromosome2.swift in Sources */,
+				8749908420C0051F0066FC54 /* Algorithm2.swift in Sources */,
 				2283BE331ADAFC8100C56DB5 /* main.swift in Sources */,
 				225F08B81AE2833600E75E25 /* Chromosome.swift in Sources */,
 				220BBECF1ADC548400BA9144 /* Algorithm.swift in Sources */,
@@ -142,19 +150,31 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -183,13 +203,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -197,6 +227,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -213,13 +244,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.1;
 			};
 			name = Debug;
 		};
 		2283BE381ADAFC8100C56DB5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_OPTIMIZATION_LEVEL = fast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.1;
 			};
 			name = Release;
 		};
